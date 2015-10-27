@@ -20,27 +20,36 @@ public class Coordinate {
     public double longitude;
 
     /**
-     *
+     * @methodtype get
      */
     protected double getLongitude() {
         return this.longitude;
     }
 
     /**
-     *
+     * @methodtype get
      */
     public double getLatitude() {
         return this.latitude;
     }
 
+    /*
+     * @methodtype set
+     */
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
+    /*
+     * @methodtype set
+     */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
+    /**
+     * @methodtype get
+     */
     public double getDistance(Coordinate coordinate) throws IllegalArgumentException {
         double lat1 = this.getLatitude();
         double lat2 = coordinate.getLatitude();
@@ -59,10 +68,13 @@ public class Coordinate {
             double a = Math.pow((Math.sin(dlat / 2)), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow((Math.sin(dlon / 2)), 2);
 
             double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            return 6373 * c; // R is the radius of the Earth
+            return 6371 * c; // R is the radius of the Earth
         }
     }
 
+    /**
+     * @methodtype get
+     */
     public double getLatitudinalDistance(Coordinate coordinate) throws IllegalArgumentException {
         double lat1 = this.getLatitude();
         double lat2 = coordinate.getLatitude();
@@ -74,6 +86,9 @@ public class Coordinate {
         }
     }
 
+    /**
+     * @methodtype get
+     */
     public double getLongitudinalDistance(Coordinate coordinate) throws IllegalArgumentException {
         double long1 = this.getLongitude();
         double long2 = coordinate.getLongitude();
