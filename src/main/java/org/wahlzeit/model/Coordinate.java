@@ -60,6 +60,7 @@ public class Coordinate {
 
         if (lat1 > 90 || lat1 < -90 || lat2 > 90 || lat1 < -90) {
             throw new IllegalArgumentException("Latitude can only be between -90 and 90 degreees.");
+
         }
         else if (long1 > 180 || long1 < -180 || long2 > 180 || long2 < -180) {
             throw new IllegalArgumentException("Longitude can only be between -180 and 180 degrees.");
@@ -97,5 +98,35 @@ public class Coordinate {
         else {
             return Math.abs(long1 - long2);
         }
+    }
+
+    /*
+     * @methodtype comparison
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Coordinate that = (Coordinate) o;
+
+        if (Double.compare(that.latitude, latitude) != 0) return false;
+        if (Double.compare(that.longitude, longitude) != 0) return false;
+
+        return true;
+    }
+
+    /*
+     * @methodtype comparison
+     */
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(latitude);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(longitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 }
