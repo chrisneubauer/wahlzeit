@@ -5,6 +5,8 @@ package org.wahlzeit.model;
  * @author Christoph Neubauer
  */
 public class Coordinate {
+    private final double EARTH_RADIUS = 6371;
+
     public Coordinate(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
@@ -63,12 +65,9 @@ public class Coordinate {
             throw new IllegalArgumentException("Longitude can only be between -180 and 180 degrees.");
         }
         else {
-            double dlon = long2 - long1;
-            double dlat = lat2 - lat1;
-            double a = Math.pow((Math.sin(dlat / 2)), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow((Math.sin(dlon / 2)), 2);
-
-            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            return 6371 * c; // R is the radius of the Earth
+            double dlon = Math.abs(long2 - long1);
+            double sigma = Math.acos(Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2)*Math.cos(dlon));
+            return EARTH_RADIUS * sigma;
         }
     }
 
