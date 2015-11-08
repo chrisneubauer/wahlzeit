@@ -29,6 +29,34 @@ public class AstronomyPhoto extends Photo {
     }
 
     /**
+     * @methodtype constructor
+     */
+    public AstronomyPhoto() {
+        super();
+        this.type = AstronomyType.STAR;
+        this.diameter = 0.0;
+        this.temperature = 0;
+        this.mass = 0;
+        this.rotation = 0.0;
+        this.chemicalComposition = new ChemicalComposition();
+        this.age = 0;
+    }
+
+    /**
+     * @methodtype constructor
+     */
+    public AstronomyPhoto(PhotoId id) {
+        super(id);
+        this.type = AstronomyType.STAR;
+        this.diameter = 0.0;
+        this.temperature = 0;
+        this.mass = 0;
+        this.rotation = 0.0;
+        this.chemicalComposition = new ChemicalComposition();
+        this.age = 0;
+    }
+
+    /**
      * @methodtype get
      */
     public double getDiameter() {

@@ -27,6 +27,19 @@ public class ChemicalComposition {
     }
 
     /**
+     * @methodtype constructor
+     */
+    public ChemicalComposition() {
+        this.hydrogen = 0;
+        this.helium = 0;
+        this.carbon = 0;
+        this.neon = 0;
+        this.oxygen = 0;
+        this.silicium = 0;
+        this.beryllium = 0;
+    }
+
+    /**
      * @methodtype get
      */
     public double getHydrogen() {
