@@ -1,7 +1,5 @@
 package org.wahlzeit.model;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
 /**
  * The class Coordinate adds location information to a photo
  * @author Christoph Neubauer
