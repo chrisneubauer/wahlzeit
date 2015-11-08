@@ -8,19 +8,19 @@ import org.junit.Test;
  * The class CoordinateTest tests calculation logic of the Coordinate.java class
  * @author Christoph Neubauer
  */
-public class CoordinateTest {
+public class SphericCoordinateTest {
 
-    private Coordinate testCoords;
-    private Coordinate testCoords2;
-    private Coordinate testCoords3;
-    private Coordinate testCoords4;
+    private SphericCoordinate testCoords;
+    private SphericCoordinate testCoords2;
+    private SphericCoordinate testCoords3;
+    private SphericCoordinate testCoords4;
 
     @Before
     public void setUpCoordinate() {
-        testCoords = new Coordinate(21.1, 54.234);
-        testCoords2 = new Coordinate(11.3, 140.11);
-        testCoords3 = new Coordinate(210.1, 1554.234);
-        testCoords4 = new Coordinate(-211.3, 240.11);
+        testCoords = new SphericCoordinate(21.1, 54.234);
+        testCoords2 = new SphericCoordinate(11.3, 140.11);
+        testCoords3 = new SphericCoordinate(210.1, 1554.234);
+        testCoords4 = new SphericCoordinate(-211.3, 240.11);
     }
     @Test
     public void testLatitudinalDistance() {
@@ -41,16 +41,16 @@ public class CoordinateTest {
     }
 
     @Test
-    public void testCalculateDistance() {
+    public void testCalculateDistance() throws Exception {
         double path = testCoords.getDistance(testCoords2);
         double pathReversed = testCoords2.getDistance(testCoords);
 
-        Assert.assertEquals(14509.90, path, 0.9);
+        Assert.assertEquals(14505.34, path, 0.9);
         Assert.assertEquals(path, pathReversed, 0.2);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCalculateDistanceException() {
+    public void testCalculateDistanceException() throws Exception {
         double path = testCoords3.getDistance(testCoords4);
         double pathReversed = testCoords4.getDistance(testCoords3);
 
@@ -74,5 +74,11 @@ public class CoordinateTest {
 
         Assert.assertEquals(9.8, path, 0.2);
         Assert.assertEquals(path, pathReversed, 0.2);
+    }
+
+    @Test(expected = Exception.class)
+    public void testCompareWithCartesianCoordinate() throws Exception {
+        CartesianCoordinate cc = new CartesianCoordinate(12, 11, 10);
+        testCoords3.getDistance(cc);
     }
 }

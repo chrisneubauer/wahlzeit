@@ -6,13 +6,13 @@ package org.wahlzeit.model;
  */
 public class Location {
     public String name;
-    public Coordinate coordinate;
+    public SphericCoordinate coordinate;
 
     public Location() {
         Location location = new Location();
         location.name = "Standpunkt";
 
-        Coordinate coordinate = new Coordinate(0,0);
+        SphericCoordinate coordinate = new SphericCoordinate(0,0);
         location.coordinate = coordinate;
     }
 
@@ -20,7 +20,7 @@ public class Location {
         Location location = new Location();
         location.name = "Standpunkt";
 
-        Coordinate coordinate = new Coordinate(latitude, longitude);
+        SphericCoordinate coordinate = new SphericCoordinate(latitude, longitude);
         location.coordinate = coordinate;
     }
 }
