@@ -4,12 +4,21 @@ package org.wahlzeit.model;
  * The class Coordinate adds location information to a photo
  * @author Christoph Neubauer
  */
-public class SphericCoordinate implements Coordinate {
+public class SphericCoordinate extends AbstractCoordinate {
     private final double EARTH_RADIUS = 6371;
 
     public SphericCoordinate(double latitude, double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
+        if (latitude > 90 || latitude < -90) {
+            throw new IllegalArgumentException("Latitude can only be between -90 and 90 degreees.");
+
+        }
+        else if (longitude > 180 || longitude < -180) {
+            throw new IllegalArgumentException("Longitude can only be between -180 and 180 degrees.");
+        }
+        else {
+            this.latitude = latitude;
+            this.longitude = longitude;
+        }
     }
     /**
      *
@@ -52,29 +61,46 @@ public class SphericCoordinate implements Coordinate {
     /**
      * @methodtype get
      */
-    public double getDistance(Coordinate coordinate) throws Exception {
-        if (coordinate instanceof SphericCoordinate) {
-            double lat1 = this.getLatitude();
-            double lat2 = ((SphericCoordinate) coordinate).getLatitude();
-            double long1 = this.getLongitude();
-            double long2 = ((SphericCoordinate) coordinate).getLongitude();
+    @Override
+    public double getX() {
+        return EARTH_RADIUS * Math.sin(this.longitude) * Math.cos(this.latitude);
+    }
 
-            if (lat1 > 90 || lat1 < -90 || lat2 > 90 || lat1 < -90) {
-                throw new IllegalArgumentException("Latitude can only be between -90 and 90 degreees.");
+    /**
+     * @methodtype get
+     */
+    @Override
+    public double getY() {
+        return EARTH_RADIUS * Math.sin(this.longitude) * Math.sin(this.latitude);
+    }
 
-            }
-            else if (long1 > 180 || long1 < -180 || long2 > 180 || long2 < -180) {
-                throw new IllegalArgumentException("Longitude can only be between -180 and 180 degrees.");
-            }
-            else {
-                double dlon = Math.abs(long2 - long1);
-                double sigma = Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dlon));
-                return EARTH_RADIUS * sigma;
-            }
+    /**
+     * @methodtype get
+     */
+    @Override
+    public double getZ() {
+        return EARTH_RADIUS * Math.cos(this.longitude);
+    }
+
+    /*
+     * @methodtype comparison
+     */
+    @Override
+    public boolean isEqual(Coordinate coordinate) {
+        if(!super.isEqual(coordinate)) {
+            return false;
         }
-        else {
-            throw new Exception("Coordinate is not of type Spheric Coordinate");
+        if (!(coordinate instanceof SphericCoordinate)) {
+            return false;
         }
+        SphericCoordinate sphericCoordinate = (SphericCoordinate) coordinate;
+        if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(sphericCoordinate.latitude)) {
+            return false;
+        }
+        else if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(sphericCoordinate.longitude)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -110,13 +136,18 @@ public class SphericCoordinate implements Coordinate {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         SphericCoordinate that = (SphericCoordinate) o;
 
-        if (Double.compare(that.latitude, latitude) != 0) return false;
-        if (Double.compare(that.longitude, longitude) != 0) return false;
+        if (Double.compare(that.latitude, latitude) != 0 || Double.compare(that.longitude, longitude) != 0) {
+            return false;
+        }
 
         return true;
     }

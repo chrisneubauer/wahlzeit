@@ -5,5 +5,6 @@ package org.wahlzeit.model;
  * @author Christoph
  */
 public interface Coordinate {
-    public abstract double getDistance(Coordinate coordinate) throws Exception;
+    public abstract double getDistance(Coordinate coordinate);
+    public abstract boolean isEqual(Coordinate coordinate);
 }

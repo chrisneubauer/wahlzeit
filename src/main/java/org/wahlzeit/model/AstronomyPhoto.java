@@ -1,9 +1,12 @@
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Subclass;
+
 /**
  * AstronomyPhoto contains specific information about pictures regarding stars and other astronomical entities
  * @author Christoph Neubauer
  */
+@Subclass
 public class AstronomyPhoto extends Photo {
     private AstronomyType type;
     private double diameter;

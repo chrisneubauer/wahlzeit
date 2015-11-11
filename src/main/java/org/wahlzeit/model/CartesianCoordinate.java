@@ -4,13 +4,8 @@ package org.wahlzeit.model;
  * The class Coordinate adds location information to a photo
  * @author Christoph Neubauer
  */
-public class CartesianCoordinate implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
 
-    public CartesianCoordinate(double x, double y, double z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
     /**
      *
      */
@@ -26,10 +21,18 @@ public class CartesianCoordinate implements Coordinate {
      */
     public double z;
 
+    /*
+     * @methodtype constructor
+     */
+    public CartesianCoordinate(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
     /**
      * @methodtype get
      */
-    protected double getX() {
+    public double getX() {
         return this.x;
     }
 
@@ -68,24 +71,25 @@ public class CartesianCoordinate implements Coordinate {
         this.z = z;
     }
 
-    /**
-     * @methodtype get
+    /*
+     * @methodtype comparison
      */
-    public double getDistance(Coordinate coordinate) throws Exception {
-        if (coordinate instanceof CartesianCoordinate) {
-            double xAbs = Math.abs(this.getX() - ((CartesianCoordinate) coordinate).getX());
-            double yAbs = Math.abs(this.getY() - ((CartesianCoordinate) coordinate).getY());
-            double zAbs = Math.abs(this.getZ() - ((CartesianCoordinate) coordinate).getZ());
-
-            double xSqr = xAbs * xAbs;
-            double ySqr = yAbs * yAbs;
-            double zSqr = zAbs * zAbs;
-
-            return Math.sqrt(xSqr + ySqr + zSqr);
+    @Override
+    public boolean isEqual(Coordinate coordinate) {
+        if(!super.isEqual(coordinate))
+            return false;
+        if (!(coordinate instanceof CartesianCoordinate))
+            return false;
+        CartesianCoordinate cartesianCoordinate = (CartesianCoordinate) coordinate;
+        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(cartesianCoordinate.x)) {
+            return false;
         }
-        else
-        {
-            throw new Exception("Coordinate is not of type Cartesian Coordinate");
+        else if (Double.doubleToLongBits(y) != Double.doubleToLongBits(cartesianCoordinate.y)) {
+            return false;
         }
+        else if (Double.doubleToLongBits(z) != Double.doubleToLongBits(cartesianCoordinate.z)) {
+            return false;
+        }
+        return true;
     }
 }

@@ -19,8 +19,8 @@ public class SphericCoordinateTest {
     public void setUpCoordinate() {
         testCoords = new SphericCoordinate(21.1, 54.234);
         testCoords2 = new SphericCoordinate(11.3, 140.11);
-        testCoords3 = new SphericCoordinate(210.1, 1554.234);
-        testCoords4 = new SphericCoordinate(-211.3, 240.11);
+        testCoords3 = new SphericCoordinate(81.1, 154.234);
+        testCoords4 = new SphericCoordinate(-89.3, 20.11);
     }
     @Test
     public void testLatitudinalDistance() {
@@ -45,38 +45,30 @@ public class SphericCoordinateTest {
         double path = testCoords.getDistance(testCoords2);
         double pathReversed = testCoords2.getDistance(testCoords);
 
-        Assert.assertEquals(14505.34, path, 0.9);
+        Assert.assertEquals(3392, path, 0.9);
         Assert.assertEquals(path, pathReversed, 0.2);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCalculateDistanceException() throws Exception {
         double path = testCoords3.getDistance(testCoords4);
         double pathReversed = testCoords4.getDistance(testCoords3);
 
-        Assert.assertEquals(16526.99, path, 0.9);
+        Assert.assertEquals(11014, path, 0.9);
         Assert.assertEquals(path, pathReversed, 0.2);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testLongitudinalDistanceException() {
-        double path = testCoords3.getLongitudinalDistance(testCoords4);
-        double pathReversed = testCoords4.getLongitudinalDistance(testCoords3);
-
-        Assert.assertEquals(1314.12, path, 0.2);
-        Assert.assertEquals(path, pathReversed, 0.2);
+        SphericCoordinate wrongCoordinate = new SphericCoordinate(100,0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testLatitudinalDistanceException() {
-        double path = testCoords3.getLatitudinalDistance(testCoords4);
-        double pathReversed = testCoords4.getLatitudinalDistance(testCoords3);
-
-        Assert.assertEquals(9.8, path, 0.2);
-        Assert.assertEquals(path, pathReversed, 0.2);
+        SphericCoordinate wrongCoordinate = new SphericCoordinate(0,200);
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void testCompareWithCartesianCoordinate() throws Exception {
         CartesianCoordinate cc = new CartesianCoordinate(12, 11, 10);
         testCoords3.getDistance(cc);
