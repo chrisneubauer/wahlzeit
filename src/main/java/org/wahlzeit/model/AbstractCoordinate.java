@@ -35,10 +35,11 @@ public abstract class AbstractCoordinate implements Coordinate{
      * @methodtype get
      */
     public double getDistance(Coordinate coordinate) {
-        if(coordinate == null)
-            throw new IllegalArgumentException("object given to getDistance-Method is null");
+        // preconditions
+        assert(coordinate != null);
 
         CartesianCoordinate cartesianCoordinate = ((AbstractCoordinate) coordinate).asCartesianCoordinate();
+
 
         // always using cartesian system
         double x = this.getX();
@@ -47,19 +48,27 @@ public abstract class AbstractCoordinate implements Coordinate{
         double cartesianCoordinateX = cartesianCoordinate.getX();
         double cartesianCoordinateY = cartesianCoordinate.getY();
         double cartesianCoordinateZ = cartesianCoordinate.getZ();
-        return Math.sqrt(Math.pow((cartesianCoordinateX - x),2) + Math.pow((cartesianCoordinateY - y),2) + Math.pow((cartesianCoordinateZ - z),2));
+
+        double distance = Math.sqrt(Math.pow((cartesianCoordinateX - x),2) + Math.pow((cartesianCoordinateY - y),2) + Math.pow((cartesianCoordinateZ - z),2));
+
+        // postcondition
+        assert(distance >= 0.0);
+        return distance;
     }
 
     /**
      * @methodtype comparison
      */
     public boolean isEqual(Coordinate coordinate) {
+        // preconditions
+        assert(coordinate != null);
+
+        boolean isEqual = false;
         if (this == coordinate)
-            return true;
-        if (coordinate == null)
-            return false;
-        if(this.getDistance(coordinate) == 0.f)
-            return true;
-        return true;
+            isEqual = true;
+        if (this.getDistance(coordinate) == 0.f)
+            isEqual = true;
+
+        return isEqual;
     }
 }
