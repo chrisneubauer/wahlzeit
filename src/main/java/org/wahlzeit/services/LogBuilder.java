@@ -1,5 +1,6 @@
 package org.wahlzeit.services;
 
+import org.wahlzeit.Pattern;
 import org.wahlzeit.model.Client;
 import org.wahlzeit.model.UserManager;
 import org.wahlzeit.model.UserSession;
@@ -17,6 +18,15 @@ import java.io.StringWriter;
  * 
  * @review
  */
+@Pattern(
+        name = "Builder",
+        participants = {
+        "Builder", // the LogBuilder
+        "ConcreteBuilder", // the LogBuilder
+        "Director", // all classes using the LogBuilder, e.g.: PhotoManager, Agent, ...
+        "Product", // the log string
+        }
+)
 public class LogBuilder {
 
 	protected static final String LEVEL = "level";

@@ -26,6 +26,7 @@ import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Work;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import org.wahlzeit.Pattern;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.OfyService;
 
@@ -39,6 +40,15 @@ import java.util.logging.Logger;
  * 
  * @review
  */
+@Pattern(
+        name = "Adapter", // object-oriented version
+        participants = {
+                "Target", // ImageStorage
+                "Client", // Wahlzeit
+                "Adaptee", // Google Data Storage
+                "Adapter", // This Class
+        }
+)
 public class DatastoreAdapter extends ImageStorage {
 
 	private static final Logger log = Logger.getLogger(DatastoreAdapter.class.getName());
