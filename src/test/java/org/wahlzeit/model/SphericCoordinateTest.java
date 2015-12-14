@@ -17,10 +17,10 @@ public class SphericCoordinateTest {
 
     @Before
     public void setUpCoordinate() {
-        testCoords = new SphericCoordinate(21.1, 54.234);
-        testCoords2 = new SphericCoordinate(11.3, 140.11);
-        testCoords3 = new SphericCoordinate(81.1, 154.234);
-        testCoords4 = new SphericCoordinate(-89.3, 20.11);
+        testCoords = SphericCoordinate.create(21.1, 54.234);
+        testCoords2 = SphericCoordinate.create(11.3, 140.11);
+        testCoords3 = SphericCoordinate.create(81.1, 154.234);
+        testCoords4 = SphericCoordinate.create(-89.3, 20.11);
     }
     @Test
     public void testLatitudinalDistance() {
@@ -60,17 +60,17 @@ public class SphericCoordinateTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testLongitudinalDistanceException() {
-        SphericCoordinate wrongCoordinate = new SphericCoordinate(100,0);
+        SphericCoordinate wrongCoordinate = SphericCoordinate.create(100,0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testLatitudinalDistanceException() {
-        SphericCoordinate wrongCoordinate = new SphericCoordinate(0,200);
+        SphericCoordinate wrongCoordinate = SphericCoordinate.create(0,200);
     }
 
     @Test
     public void testCompareWithCartesianCoordinate() throws Exception {
-        CartesianCoordinate cc = new CartesianCoordinate(12, 11, 10);
+        CartesianCoordinate cc = CartesianCoordinate.create(12, 11, 10);
         testCoords3.getDistance(cc);
     }
 }

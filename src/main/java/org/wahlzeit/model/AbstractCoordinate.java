@@ -1,10 +1,13 @@
 package org.wahlzeit.model;
 
+import java.util.HashMap;
+
 /**
  * The class AbstractCoordinate contains general logic for coordinates.
  * @author Christoph
  */
 public abstract class AbstractCoordinate implements Coordinate{
+    protected static final HashMap<String, Coordinate> COORDINATES = new HashMap<String, Coordinate>();
     /**
      * @methodtype get
      */
@@ -28,7 +31,7 @@ public abstract class AbstractCoordinate implements Coordinate{
         double y = this.getY();
         double z = this.getZ();
 
-        return new CartesianCoordinate(x, y, z);
+        return CartesianCoordinate.create(x, y, z);
     }
 
     /**
@@ -71,4 +74,28 @@ public abstract class AbstractCoordinate implements Coordinate{
 
         return isEqual;
     }
+
+    /**
+     * This method returns an instance of the coordinate value object. If there is no instance yet, a new one is created. This prevents instantiation of two similar coordinates
+     * @return
+     */
+    protected Coordinate getInstance(double x, double y, double z) {
+        String coordinate = registerCoordinate(x, y, z, CartesianCoordinate.class.getCanonicalName());
+        CartesianCoordinate result = (CartesianCoordinate) COORDINATES.get(coordinate);
+        if (result == null) {
+
+            result = (CartesianCoordinate) COORDINATES.get(coordinate);
+            if (result == null) {
+                result = CartesianCoordinate.create(x, y, z);
+                COORDINATES.put(coordinate, result);
+            }
+
+        }
+        return result;
+    }
+
+    private String registerCoordinate(double x, double y, double z, String className) {
+        return (x + " " + y + " " + z + " " + className);
+    }
+
 }

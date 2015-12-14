@@ -7,7 +7,7 @@ package org.wahlzeit.model;
 public class SphericCoordinate extends AbstractCoordinate {
     private final double EARTH_RADIUS = 6371;
 
-    public SphericCoordinate(double latitude, double longitude) {
+    private SphericCoordinate(double latitude, double longitude) {
         if (latitude > 90 || latitude < -90) {
             throw new IllegalArgumentException("Latitude can only be between -90 and 90 degreees.");
 
@@ -16,46 +16,49 @@ public class SphericCoordinate extends AbstractCoordinate {
             throw new IllegalArgumentException("Longitude can only be between -180 and 180 degrees.");
         }
         else {
-            this.latitude = latitude;
-            this.longitude = longitude;
+            this.LATITUDE = latitude;
+            this.LONGITUDE = longitude;
         }
     }
     /**
      *
      */
-    public double latitude;
+    public final double LATITUDE;
 
     /**
      *
      */
-    public double longitude;
+    public final double LONGITUDE;
 
+    public static SphericCoordinate create(double lat, double lon) {
+        return new SphericCoordinate(lat, lon);
+    }
     /**
      * @methodtype get
      */
     protected double getLongitude() {
-        return this.longitude;
+        return this.LONGITUDE;
     }
 
     /**
      * @methodtype get
      */
     public double getLatitude() {
-        return this.latitude;
+        return this.LATITUDE;
     }
 
     /*
      * @methodtype set
      */
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public SphericCoordinate setLongitude(double longitude) {
+        return new SphericCoordinate(getLatitude(), longitude);
     }
 
     /*
      * @methodtype set
      */
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public SphericCoordinate setLatitude(double latitude) {
+        return new SphericCoordinate(latitude, getLongitude());
     }
 
     /**
@@ -63,7 +66,7 @@ public class SphericCoordinate extends AbstractCoordinate {
      */
     @Override
     public double getX() {
-        return EARTH_RADIUS * Math.sin(this.longitude) * Math.cos(this.latitude);
+        return EARTH_RADIUS * Math.sin(this.LONGITUDE) * Math.cos(this.LATITUDE);
     }
 
     /**
@@ -71,7 +74,7 @@ public class SphericCoordinate extends AbstractCoordinate {
      */
     @Override
     public double getY() {
-        return EARTH_RADIUS * Math.sin(this.longitude) * Math.sin(this.latitude);
+        return EARTH_RADIUS * Math.sin(this.LONGITUDE) * Math.sin(this.LATITUDE);
     }
 
     /**
@@ -79,7 +82,7 @@ public class SphericCoordinate extends AbstractCoordinate {
      */
     @Override
     public double getZ() {
-        return EARTH_RADIUS * Math.cos(this.longitude);
+        return EARTH_RADIUS * Math.cos(this.LONGITUDE);
     }
 
     /*
@@ -94,10 +97,10 @@ public class SphericCoordinate extends AbstractCoordinate {
             return false;
         }
         SphericCoordinate sphericCoordinate = (SphericCoordinate) coordinate;
-        if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(sphericCoordinate.latitude)) {
+        if (Double.doubleToLongBits(LATITUDE) != Double.doubleToLongBits(sphericCoordinate.LATITUDE)) {
             return false;
         }
-        else if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(sphericCoordinate.longitude)) {
+        else if (Double.doubleToLongBits(LONGITUDE) != Double.doubleToLongBits(sphericCoordinate.LONGITUDE)) {
             return false;
         }
         return true;
@@ -145,7 +148,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 
         SphericCoordinate that = (SphericCoordinate) o;
 
-        if (Double.compare(that.latitude, latitude) != 0 || Double.compare(that.longitude, longitude) != 0) {
+        if (Double.compare(that.LATITUDE, LATITUDE) != 0 || Double.compare(that.LONGITUDE, LONGITUDE) != 0) {
             return false;
         }
 
@@ -159,9 +162,9 @@ public class SphericCoordinate extends AbstractCoordinate {
     public int hashCode() {
         int result;
         long temp;
-        temp = Double.doubleToLongBits(latitude);
+        temp = Double.doubleToLongBits(LATITUDE);
         result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(longitude);
+        temp = Double.doubleToLongBits(LONGITUDE);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }

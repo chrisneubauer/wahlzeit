@@ -12,7 +12,7 @@ public class Location {
         Location location = new Location();
         location.name = "Standpunkt";
 
-        SphericCoordinate coordinate = new SphericCoordinate(0,0);
+        SphericCoordinate coordinate = SphericCoordinate.create(0,0);
         location.coordinate = coordinate;
     }
 
@@ -20,7 +20,7 @@ public class Location {
         Location location = new Location();
         location.name = "Standpunkt";
 
-        SphericCoordinate coordinate = new SphericCoordinate(latitude, longitude);
+        SphericCoordinate coordinate = SphericCoordinate.create(latitude, longitude);
         location.coordinate = coordinate;
     }
 }

@@ -9,71 +9,70 @@ public class CartesianCoordinate extends AbstractCoordinate {
     /**
      *
      */
-    public double x;
+    public final double X;
 
     /**
      *
      */
-    public double y;
+    public final double Y;
 
     /*
      *
      */
-    public double z;
+    public final double Z;
 
     /*
      * @methodtype constructor
      */
-    public CartesianCoordinate(double x, double y, double z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+    private CartesianCoordinate(double x, double y, double z) {
+        this.X = x;
+        this.Y = y;
+        this.Z = z;
     }
-    /**
-     * @methodtype get
+
+    public static CartesianCoordinate create(double x, double y, double z) {
+        return new CartesianCoordinate(x, y, z);
+    }
+
+    /*
+     * @methodtype set
      */
+    public CartesianCoordinate setX(double x) {
+        return (CartesianCoordinate) getInstance(x, this.Y, this.Z);
+    }
+
+    /*
+     * @methodtype set
+     */
+    public CartesianCoordinate setY(double y) {
+        return (CartesianCoordinate) getInstance(this.X, y, this.Z);
+    }
+
+    /*
+     * @methodtype set
+     */
+    public CartesianCoordinate setZ(double z) {
+        return (CartesianCoordinate) getInstance(this.X, this.Y, z);
+    }
+
+    @Override
     public double getX() {
-        return this.x;
+        return this.X;
     }
 
-    /**
-     * @methodtype get
-     */
+    @Override
     public double getY() {
-        return this.y;
+        return this.Y;
     }
 
-    /**
-     * @methodtype get
-     */
+    @Override
     public double getZ() {
-        return this.z;
+        return this.Z;
     }
 
     /*
-     * @methodtype set
-     */
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    /*
-     * @methodtype set
-     */
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    /*
-     * @methodtype set
-     */
-    public void setZ(double z) {
-        this.z = z;
-    }
-
-    /*
-     * @methodtype comparison
-     */
+         * @methodtype comparison
+         */
     @Override
     public boolean isEqual(Coordinate coordinate) {
         if(!super.isEqual(coordinate))
@@ -81,13 +80,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
         if (!(coordinate instanceof CartesianCoordinate))
             return false;
         CartesianCoordinate cartesianCoordinate = (CartesianCoordinate) coordinate;
-        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(cartesianCoordinate.x)) {
+        if (Double.doubleToLongBits(X) != Double.doubleToLongBits(cartesianCoordinate.X)) {
             return false;
         }
-        else if (Double.doubleToLongBits(y) != Double.doubleToLongBits(cartesianCoordinate.y)) {
+        else if (Double.doubleToLongBits(Y) != Double.doubleToLongBits(cartesianCoordinate.Y)) {
             return false;
         }
-        else if (Double.doubleToLongBits(z) != Double.doubleToLongBits(cartesianCoordinate.z)) {
+        else if (Double.doubleToLongBits(Z) != Double.doubleToLongBits(cartesianCoordinate.Z)) {
             return false;
         }
         return true;

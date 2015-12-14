@@ -16,9 +16,9 @@ public class CartesianCoordinateTest {
 
     @Before
     public void setUpCoordinate() {
-        testCoords = new CartesianCoordinate(21.1, 54.234, 12);
-        testCoords2 = new CartesianCoordinate(11.3, 140.11,11);
-        testCoords3 = new CartesianCoordinate(210.1, 1554.234, 765);
+        testCoords = CartesianCoordinate.create(21.1, 54.234, 12);
+        testCoords2 = CartesianCoordinate.create(11.3, 140.11,11);
+        testCoords3 = CartesianCoordinate.create(210.1, 1554.234, 765);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class CartesianCoordinateTest {
 
     @Test
     public void testCompareWithSphericCoordinate() {
-        SphericCoordinate sc = new SphericCoordinate(12, 11);
+        SphericCoordinate sc = SphericCoordinate.create(12, 11);
         double result = testCoords3.getDistance(sc);
         Assert.assertEquals(5935, result, 0.2);
      }
