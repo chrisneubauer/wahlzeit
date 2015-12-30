@@ -1,18 +1,19 @@
 package org.wahlzeit.model;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import org.wahlzeit.services.DataObject;
 
 /**
- * This class holds all the attributes of an astronomical entity
+ * This class contains attributes of an astronomical entity
  * @author Christoph Neubauer
  */
-public class AstronomyType {
+@Entity
+public class Astronomy extends DataObject {
+    @Id
+    long id;
 
-    private final List<Astronomy> instances = new LinkedList<>();
-
-    private StarType type;
+    private AstronomyType type;
     private String name;
     private Location location;
     private double diameter;
@@ -23,18 +24,33 @@ public class AstronomyType {
     private long age;
 
     /**
+     * @methodtype constructor
+     */
+    private Astronomy() {}
+
+    /**
+     * @methodtype constructor
+     */
+    public Astronomy(AstronomyType type) {
+        this.type = type;
+    }
+
+    public AstronomyPhoto createAstronomyPhoto() {
+        return AstronomyPhotoFactory.getInstance().createPhoto();
+    }
+
+    /**
      * @methodtype get
      */
-    public List<Astronomy> getInstances() {
-        return Collections.unmodifiableList(instances);
+    public AstronomyType getType() {
+        return type;
     }
 
-    public void addInstance(Astronomy astronomy) {
-        instances.add(astronomy);
-    }
-
-    public void removeInstance(Astronomy astronomy) {
-        instances.remove(astronomy);
+    /**
+     * @methodtype set
+     */
+    public void setType(AstronomyType type) {
+        this.type = type;
     }
 
     /**
@@ -64,6 +80,7 @@ public class AstronomyType {
     public void setLocation(Location location) {
         this.location = location;
     }
+
     /**
      * @methodtype get
      */
@@ -146,64 +163,5 @@ public class AstronomyType {
      */
     public void setAge(long age) {
         this.age = age;
-    }
-
-    /**
-     * @methodtype get
-     */
-    public StarType getType() {
-        return type;
-    }
-
-    /**
-     * @methodtype set
-     */
-    public void setType(StarType type) {
-        this.type = type;
-    }
-
-    /**
-     * @methodtype constructor
-     */
-    public AstronomyType(String name, StarType type, double diameter, double temperature, double mass, double rotation,
-                          ChemicalComposition chemicalComposition, long age) {
-        super();
-        this.name = name;
-        this.type = type;
-        this.diameter = diameter;
-        this.temperature = temperature;
-        this.mass = mass;
-        this.rotation = rotation;
-        this.chemicalComposition = chemicalComposition;
-        this.age = age;
-    }
-
-    /**
-     * @methodtype constructor
-     */
-    public AstronomyType(String name) {
-        super();
-        this.name = name;
-        this.type = StarType.STAR;
-        this.diameter = 0.0;
-        this.temperature = 0;
-        this.mass = 0;
-        this.rotation = 0.0;
-        this.chemicalComposition = new ChemicalComposition();
-        this.age = 0;
-    }
-
-    /**
-     * @methodtype constructor
-     */
-    public AstronomyType() {
-        super();
-        this.type = StarType.STAR;
-        this.diameter = 0.0;
-        this.temperature = 0;
-        this.mass = 0;
-        this.rotation = 0.0;
-        this.chemicalComposition = new ChemicalComposition();
-        this.age = 0;
     }
 }
