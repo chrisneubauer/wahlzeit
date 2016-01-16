@@ -14,6 +14,7 @@ public class AstronomyPhoto extends Photo {
      * @methodtype constructor
      */
     public AstronomyPhoto(Astronomy astronomy) {
+        super();
         this.astronomy = astronomy;
     }
 

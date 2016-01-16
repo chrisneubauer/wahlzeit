@@ -6,8 +6,8 @@ import java.util.HashMap;
  * Holds instance with all astronomyTypes. Returns object if existent, otherwise creates a new one
  * @author Christoph Neubauer
  */
-public class AstronomyPhotoManager extends PhotoManager {
-    protected static final AstronomyPhotoManager instance = new AstronomyPhotoManager();
+public class AstronomyManager extends PhotoManager {
+    protected static final AstronomyManager instance = new AstronomyManager();
 
     private final HashMap<String, AstronomyType> astronomyTypes = new HashMap<>();
 

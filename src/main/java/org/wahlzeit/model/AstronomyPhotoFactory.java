@@ -86,6 +86,13 @@ public class AstronomyPhotoFactory extends PhotoFactory {
 		return new AstronomyPhoto(id);
 	}
 
+    /**
+     * Creates a new photo with the astronomy informaiton
+    */
+    public AstronomyPhoto createPhoto(Astronomy astronomy) {
+        return new AstronomyPhoto(astronomy);
+    }
+
 	/**
 	 * Loads a photo. The Java object is loaded from the Google Datastore, the Images in all sizes are loaded from the
 	 * Google Cloud storage.
